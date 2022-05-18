@@ -4,7 +4,7 @@ import { useQuery } from 'react-query'
 
 const RQHeroes = () => {
 
-    const { data, isLoading, isError } = useQuery('heroes', () => {
+    const { data, isLoading, isError, error } = useQuery('heroes', () => {
         return axios.get(`http://localhost:4000/superheroes`)
     });
     if (isLoading) {
@@ -12,7 +12,9 @@ const RQHeroes = () => {
     }
 
     if (isError) {
-        return <h1>Error</h1>
+        return <h2>
+            {error.message?.toString()}
+        </h2>
     }
     return (
         <>
