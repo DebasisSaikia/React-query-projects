@@ -2,6 +2,7 @@ import React from 'react'
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { QueryClientProvider, QueryClient } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools'
 import Heroes from './components/Heroes'
 import Home from './components/Home'
 import RQHeroes from './components/RQHeroes'
@@ -39,6 +40,7 @@ const App2 = () => {
                     </Switch>
                 </div>
             </Router>
+            <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
         </QueryClientProvider>
     )
 }
