@@ -6,7 +6,12 @@ const RQHeroes = () => {
 
     const { data, isLoading, isError, error, refetch, isFetching } = useQuery('heroes', () => {
         return axios.get(`http://localhost:4000/superheroes`)
-    }, { refetchOnMount: true, refetchInterval: 1500, enabled: false });
+    }, {
+        refetchOnMount: true, refetchInterval: 1500, enabled: false, select: (data) => {
+            const superHeroes = data?.data?.map((hero) => hero?.name);
+            return superHeroes;
+        }
+    });
 
     if (isLoading, isFetching) {
         return <h1>Loading....</h1>
@@ -21,8 +26,8 @@ const RQHeroes = () => {
         <>
             <h2>RQ super heroes</h2>
             <button onClick={refetch}>Refetch</button>
-            {data?.data?.map((hero, ind) => (
-                <div key={ind}>{hero?.name}</div>
+            {data?.map((heroName, ind) => (
+                <div key={ind}>{heroName}</div>
             ))}
         </>
     )
