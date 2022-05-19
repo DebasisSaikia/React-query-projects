@@ -4,21 +4,23 @@ import { useQuery } from 'react-query'
 
 const RQHeroes = () => {
 
-    const { data, isLoading, isError, error } = useQuery('heroes', () => {
+    const { data, isLoading, isError, error, refetch, isFetching } = useQuery('heroes', () => {
         return axios.get(`http://localhost:4000/superheroes`)
-    });
-    if (isLoading) {
+    }, { refetchOnMount: true, refetchInterval: 1500, enabled: false });
+
+    if (isLoading, isFetching) {
         return <h1>Loading....</h1>
     }
 
     if (isError) {
         return <h2>
-            {error.message?.toString()}
+            {error}
         </h2>
     }
     return (
         <>
             <h2>RQ super heroes</h2>
+            <button onClick={refetch}>Refetch</button>
             {data?.data?.map((hero, ind) => (
                 <div key={ind}>{hero?.name}</div>
             ))}
